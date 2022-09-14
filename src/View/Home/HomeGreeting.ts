@@ -1,11 +1,11 @@
 import { MyContext } from "../../Model/Model"
 
-const ext_id = [
-    { id: 1158906956, name: "deals [yelllow]" },
-    { id: 1163778886, name: "airlines [green]" }
-]
+// const ext_id = [
+//     { id: 1158906956, name: "deals [yelllow]" },
+//     { id: 1163778886, name: "airlines [green]" }
+// ]
 
-const ext_id2 = [
+const ext_id = [
     { id: 1158906956, name: "deals [yelllow]" },
     { id: 1163778886, name: "airlines [green]" },
     { id: 1163778491, name: "flights [blue]" },

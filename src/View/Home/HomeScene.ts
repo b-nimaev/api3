@@ -34,7 +34,7 @@ async function gedataHandler(ctx) {
 
         await delay(5000).then(async () => {
             console.log(`#${z} App`)
-            await getList(ext_id[z].id, ctx)
+            await getList(ext_id[z], ctx)
                 .then(result => {
                     if (!result) {
                         console.log('1')
@@ -56,7 +56,8 @@ async function gedataHandler(ctx) {
         })
     }
 
-
+    await ctx.reply('🚀')
+    await ctx.reply('Данные получены!')
     await ctx.reply(message)
 
     // console.log(ctx.update.callback_query)
