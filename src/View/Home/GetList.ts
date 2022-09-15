@@ -4,7 +4,7 @@
 import axios from 'axios'
 import fetch from "node-fetch";
 import { ext_id } from './HomeGreeting';
-
+const fs = require('fs')
 const countries = ['US', 'AE', 'AR', 'AT', 'AU', 'BE', 'BG', 'BH', 'BR', 'CA', 'CH', 'CL', 'CN', 'CO', 'CZ', 'DE', 'DK', 'DZ', 'EG', 'ES', 'GB', 'GR', 'FI', 'FR', 'HK', 'HU', 'ID', 'IE', 'IL', 'IN', 'IT', 'JO', 'JP', 'KR', 'KW', 'LB', 'MO', 'LT', 'LV', 'MY', 'MX', 'NL', 'NO', 'NZ', 'OM', 'PH', 'PL', 'PT', 'QA', 'RO', 'RU', 'SA', 'SE', 'SG', 'SK', 'SZ', 'TH', 'TN', 'TR', 'TW', 'UA', 'VN', 'ZA']
 // const countries = ['US', 'RU'];
 
@@ -25,7 +25,7 @@ function delay(ms) {
     });
 }
 
-async function innerFunction(id, downloads, ctx?) {
+async function innerFunction(id, downloads, delay, ctx?) {
     // получаем дату
     const nowdate = new Date(Date.now() - 86400000 * 2)
     const date = `${nowdate.getFullYear().toString()}-${(nowdate.getMonth() + 1).toString().padStart(2, '0')}-${(nowdate.getDate()).toString().padStart(2, '0')}`;
@@ -43,7 +43,7 @@ async function innerFunction(id, downloads, ctx?) {
         }
     };
 
-    await delay(5000).then(async () => {
+    await delay(delay).then(async () => {
         await ctx.reply(`${id.name}(${id.id}) — ${downloads.country} Считаю, сколько нужно добавить`)
         // @ts-ignore
         await axios(options)
@@ -53,7 +53,7 @@ async function innerFunction(id, downloads, ctx?) {
 
                         // console.log('Need one 5 rating')
                         // console.log('Общее количество нужных звезд: 1')
-                        result = `stars_total == 0`
+
                     } else if (res.data.ratings.list[0].rating < 4.7) {
                         // console.log(res.data.ratings.list[0])
                         let item = res.data.ratings.list[0]
@@ -77,7 +77,17 @@ async function innerFunction(id, downloads, ctx?) {
                     result = `is has't stars`
                 }
             })
-            .catch(err => console.log(err))
+            .catch(async (err) => {
+                await ctx.reply(`Возникла ошибка при получении рейтингов у ${id.name}(${id.id})`)
+                fs.writeFile("hello.txt", err, function (error) {
+
+                    if (error) throw error; // если возникла ошибка
+                    console.log("Асинхронная запись файла завершена. Содержимое файла:");
+                    let data = fs.readFileSync("hello.txt", "utf8");
+                    console.log(data);  // выводим считанные данные
+                });
+                return await innerFunction(id, downloads, 15000, ctx)
+            })
     })
     return result
 }
@@ -95,7 +105,7 @@ export async function getList(id, ctx?) {
                             if (downloads.count > 50) {
                                 await ctx.reply(`Загрузок у ${id.id}(${id.name}) — ${downloads.country} > 50 (${downloads.count})`)
 
-                                await innerFunction(id, downloads, ctx).then(async (data) => {
+                                await innerFunction(id, downloads, 5000, ctx).then(async (data) => {
                                     if (data) {
                                         await ctx.reply(data)
                                         // return data
