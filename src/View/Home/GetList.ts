@@ -5,8 +5,8 @@ import axios from 'axios'
 import fetch from "node-fetch";
 import { ext_id } from './HomeGreeting';
 const fs = require('fs')
-const countries = ['US', 'AE', 'AR', 'AT', 'AU', 'BE', 'BG', 'BH', 'BR', 'CA', 'CH', 'CL', 'CN', 'CO', 'CZ', 'DE', 'DK', 'DZ', 'EG', 'ES', 'GB', 'GR', 'FI', 'FR', 'HK', 'HU', 'ID', 'IE', 'IL', 'IN', 'IT', 'JO', 'JP', 'KR', 'KW', 'LB', 'MO', 'LT', 'LV', 'MY', 'MX', 'NL', 'NO', 'NZ', 'OM', 'PH', 'PL', 'PT', 'QA', 'RO', 'RU', 'SA', 'SE', 'SG', 'SK', 'SZ', 'TH', 'TN', 'TR', 'TW', 'UA', 'VN', 'ZA']
-// const countries = ['US', 'RU'];
+// const countries = ['US', 'AE', 'AR', 'AT', 'AU', 'BE', 'BG', 'BH', 'BR', 'CA', 'CH', 'CL', 'CN', 'CO', 'CZ', 'DE', 'DK', 'DZ', 'EG', 'ES', 'GB', 'GR', 'FI', 'FR', 'HK', 'HU', 'ID', 'IE', 'IL', 'IN', 'IT', 'JO', 'JP', 'KR', 'KW', 'LB', 'MO', 'LT', 'LV', 'MY', 'MX', 'NL', 'NO', 'NZ', 'OM', 'PH', 'PL', 'PT', 'QA', 'RO', 'RU', 'SA', 'SE', 'SG', 'SK', 'SZ', 'TH', 'TN', 'TR', 'TW', 'UA', 'VN', 'ZA']
+const countries = ['US', 'AE', 'AR', 'AT', 'AU', 'BE', 'BG'];
 
 
 // test
@@ -25,7 +25,7 @@ function delay(ms) {
     });
 }
 
-async function innerFunction(id, downloads, delay, ctx?) {
+async function innerFunction(id, downloads, delayms, ctx?) {
     // получаем дату
     const nowdate = new Date(Date.now() - 86400000 * 2)
     const date = `${nowdate.getFullYear().toString()}-${(nowdate.getMonth() + 1).toString().padStart(2, '0')}-${(nowdate.getDate()).toString().padStart(2, '0')}`;
