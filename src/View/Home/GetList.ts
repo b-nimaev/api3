@@ -5,8 +5,8 @@ import axios from 'axios'
 import fetch from "node-fetch";
 import { ext_id } from './HomeGreeting';
 const fs = require('fs')
-// const countries = ['US', 'AE', 'AR', 'AT', 'AU', 'BE', 'BG', 'BH', 'BR', 'CA', 'CH', 'CL', 'CN', 'CO', 'CZ', 'DE', 'DK', 'DZ', 'EG', 'ES', 'GB', 'GR', 'FI', 'FR', 'HK', 'HU', 'ID', 'IE', 'IL', 'IN', 'IT', 'JO', 'JP', 'KR', 'KW', 'LB', 'MO', 'LT', 'LV', 'MY', 'MX', 'NL', 'NO', 'NZ', 'OM', 'PH', 'PL', 'PT', 'QA', 'RO', 'RU', 'SA', 'SE', 'SG', 'SK', 'SZ', 'TH', 'TN', 'TR', 'TW', 'UA', 'VN', 'ZA']
-const countries = ['US', 'AE', 'AR', 'AT', 'AU', 'BE', 'BG'];
+const countries = ['US', 'AE', 'AR', 'AT', 'AU', 'BE', 'BG', 'BH', 'BR', 'CA', 'CH', 'CL', 'CN', 'CO', 'CZ', 'DE', 'DK', 'DZ', 'EG', 'ES', 'GB', 'GR', 'FI', 'FR', 'HK', 'HU', 'ID', 'IE', 'IL', 'IN', 'IT', 'JO', 'JP', 'KR', 'KW', 'LB', 'MO', 'LT', 'LV', 'MY', 'MX', 'NL', 'NO', 'NZ', 'OM', 'PH', 'PL', 'PT', 'QA', 'RO', 'RU', 'SA', 'SE', 'SG', 'SK', 'SZ', 'TH', 'TN', 'TR', 'TW', 'UA', 'VN', 'ZA']
+// const countries = ['US', 'AE', 'AR', 'AT', 'AU', 'BE', 'BG'];
 
 
 // test
@@ -99,13 +99,13 @@ export async function getList(id, ctx?) {
 
             // id приложения
             for (let i = 0; i < countries.length; i++) {
-                await delay(14000).then(async () => {
+                await delay(1000).then(async () => {
                     return await getDownloadsFromCountry(id, countries[i], ctx).then(async downloads => {
                         if (downloads) {
                             if (downloads.count > 50) {
                                 await ctx.reply(`Загрузок у ${id.id}(${id.name}) — ${downloads.country} > 50 (${downloads.count})`)
 
-                                await innerFunction(id, downloads, 5000, ctx).then(async (data) => {
+                                await innerFunction(id, downloads, 1000, ctx).then(async (data) => {
                                     if (data) {
                                         await ctx.reply(data)
                                         // return data
